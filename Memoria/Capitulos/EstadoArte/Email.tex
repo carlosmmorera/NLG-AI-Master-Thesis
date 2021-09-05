@@ -1,0 +1,62 @@
+\section{Correo electrónico}\label{s:email}
+El correo electrónico \citep[Capítulo 11]{redhatemail} es un servicio de comunicación que ha sido utilizado desde 1971 \citep{wikiemail}, momento en el que a través de la primera red adaptada para el envío de e-mails se envió el texto ``QWERTYUIOP''. Este correo se mandó a través de ARPAnet (cuyo nombre proviene de \textit{Advanced Research Projects Agency Network}, que en inglés significa Red de la Agencia de Proyectos de Investigación Avanzada, y fue la primera red en la que se implementó el famoso protocolo TCP/IP) con un protocolo experimental conocido como CYPNET. Actualmente los mensajes hacen uso de una arquitectura cliente-servidor, de manera que el correo electrónico es construido a través de de un programa cliente y, posteriormente, es enviado al servidor. Desde dicho servidor, se redirige el mensaje al servidor del servicio de correo del destinatario y, desde este último, es enviado al receptor.
+
+De acuerdo con \cite{radicati2020email}, el correo electrónico ``sigue siendo la forma de comunicación dominante tanto para las empresas como para los consumidores particulares'' y, aún hoy en día, cada año se continúa observando un constante crecimiento del número de cuentas de e-mail y de la cantidad de mensajes enviados. De hecho, en 2021 el número de usuarios de correo electrónico en todo el mundo alcanzará los 4.1 miles de millones (más de la mitad de la población mundial utiliza el servicio de e-mail) y se espera que esta cifra siga aumentando hasta que haya 4.5 miles de millones en 2025. El crecimiento del número de usuarios en este rango de años se ve reflejado en la tabla \ref{tab:emailusers}.
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|p{0.52\linewidth}|l|l|l|l|l|}
+		\hline
+		\textbf{Año} & 2021 & 2022 & 2023 & 2024 & 2025 \\ \hline
+		\textbf{Miles de millones de usuarios en todo el mundo} & 4.147 & 4.258 & 4.371 & 4.481 & 4.594\\ \hline
+		\textbf{Porcentaje de crecimiento} & 3\% & 3\% & 3\% & 3\% & 3\% \\ \hline
+	\end{tabular}
+	\caption{Previsión de usuarios de correo electrónico en todo el mundo (2021-2025)}\label{tab:emailusers}
+	Tabla extraída de \cite{radicati2020email}.
+\end{table}
+
+Por otro lado, la evolución en el tráfico diario de e-mails en todo el mundo se presenta en la tabla \ref{tab:dailymail}, donde puede observarse la gigantesca cantidad de correos electrónicos enviados cada día y su crecimiento a lo largo de los próximos cuatro años. Con estos datos, podemos calcular el número medio de mensajes enviados por usuario cada día, obteniendo que en 2021 de media cada usuario manda aproximadamente 77 e-mails y esta cantidad continúa creciendo hasta alcanzar casi los 82 correos electrónicos diarios de media por usuario. Esto significa que, a medida que avanzan los años, no solo crece la cifra de personas que hace uso de este sistema de comunicación, sino que también aumenta la dedicación que cada usuario invierte en la utilización de esta herramienta.
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|p{0.52\linewidth}|l|l|l|l|l|}
+		\hline
+		\textbf{Año} & 2021 & 2022 & 2023 & 2024 & 2025 \\ \hline
+		\textbf{Miles de millones de correos electrónicos enviados/recibidos al día en el mundo} & 319.6 & 333.2 & 347.3 & 361.6 & 376.4\\ \hline
+		\textbf{Porcentaje de crecimiento} & 4.3\% & 4.3\% & 4.2\% & 4.1\% & 4.1\% \\ \hline
+	\end{tabular}
+	\caption{Tráfico diario de correos electrónicos en todo el mundo (2021-2025)}\label{tab:dailymail}
+	Tabla extraída de \cite{radicati2020email}.
+\end{table}
+
+Para hacer posible el envío de todos estos correos electrónicos, existe un estándar que determina el formato que deben tener los mensajes y una amplia gama de protocolos de red que permiten el intercambio de e-mails entre máquinas distintas (las cuales a menudo poseen sistemas operativos distintos y utilizan diferentes programas de correo electrónico). A continuación se presenta dicho estándar de formato conocido como MIME (véase la sección \ref{ss:mime}), el cual resultará de gran utilidad de cara a procesar cada uno de los mensajes pertenecientes corpus inicial de partida (explicado en \ref{s:enron}) y obtener la información necesaria de cada uno de ellos. También, con el fin de cerrar este apartado y tener un conocimiento general acerca de el funcionamiento de este medio de comunicación, se introducirán los principales protocolos de gestión de correos electrónicos tanto para la transmisión de los mismos (para dicha tarea se hace uso del protocolo SMTP expuesto en la sección \ref{ss:smtp}) como para el acceso por parte de los usuarios (en este caso se utilizan los protocolos POP e IMAP que son explicados en las secciones \ref{ss:pop} y \ref{ss:imap}, respectivamente).
+
+\subsection{MIME}\label{ss:mime}
+La especificación del formato que deben tener los correos electrónicos viene determinado por el estándar conocido como MIME (acrónimo de \textit{Multipurpose Internet Mail Extensions}), el cual es utilizado para el intercambio de distintos tipos de archivos (texto, audio y vídeos, entre otros) que ofrece soporte a textos con caracteres no pertenecientes al formato ASCII, archivos adjuntos que no son de texto, mensajes con cuerpo con numerosas partes (conocidos como mensajes multiparte) e información de cabecera con caracteres no ASCII. Se encuentra definido en los documentos técnicos llamados \textit{Request For Comments} (RFC) con identificadores: RFC 2045 \citep{rfc2045}, RFC 2046 \citep{rfc2046}, RFC 2047 \citep{rfc2047}, RFC 2049 \citep{rfc2049}, RFC 2077 \citep{rfc2077}, RFC 4288 \citep{rfc4288} y RFC 4289 \citep{rfc4289}.
+
+Prácticamente todos los correos electrónicos escritos por personas en Internet y una considerable proporción de estos mensajes generados automáticamente, se transmiten en formato MIME a través de SMTP (véase la sección \ref{ss:smtp}). Los mensajes de correo electrónico de Internet están tan estrechamente relacionados con SMTP y MIME que suelen denominarse mensajes SMTP/MIME.
+
+Los tipos de contenido englobados dentro del estándar MIME son de gran importancia también fuera del contexto de los correos electrónicos. Ejemplos de ello son algunos protocolos de red como el HTTP de la Web. Este protocolo requiere que los datos se transmitan en un contexto de mensaje de tipo e-mail, aunque los datos no sean un correo electrónico propiamente dicho.
+
+Hoy en día, ningún programa de correo electrónico o navegador de Internet puede considerarse completo si no acepta MIME en sus distintas funcionalidades (formatos de texto y de archivo).
+
+\subsubsection{Nomenclatura de tipos}
+Como se ha mencionado anteriormente, MIME permite el intercambio de distintos tipos de archivos. Para lograrlo, este estándar utiliza una nomenclatura diferente para denotar a cada tipo. Los nombres utilizados siguen el formato ``tipo/subtipo'', siendo tanto tipo como subtipo cadenas de caracteres. De esta manera, el tipo especificará la categoría general de los datos enviados y el subtipo determinará el tipo específico de la información mandada. Los valores que puede tomar tipo son los siguientes:
+
+\begin{itemize}
+	\item \textit{text}: informa de que el contenido es texto. Este tipo puede preceder a los subtipos \textit{html}, \textit{xml} y \textit{plain}.
+	\item\textit{multipart}: indica que el mensaje contiene distintas partes (cada una de un tipo diferente) con datos independientes entre ellas. Puede anteceder a subtipos como \textit{form-data} y \textit{digest}.
+	\item\textit{message}: se utiliza para encapsular un mensaje existente, por ejemplo, cuando se quiere responder a un correo electrónico y añadir los mensajes anteriores. A este tipo le pueden seguir subtipos como \textit{partial} y \textit{rfc822}.
+	\item\textit{image}: especifica que el contenido se trata de una imagen. Le pueden suceder los subtipos \textit{png}, \textit{jpeg} y \textit{gif}.
+	\item\textit{audio}: determina que el contenido se trata de un audio. Los subtipos \textit{mp3} y \textit{32kadpcm} son algunos ejemplos a los que puede anteceder este tipo.
+	\item\textit{video}: señala que el contenido se trata de un vídeo. Puede preceder a subtipos como \textit{mpeg} y \textit{avi}.
+	\item\textit{application}: denota a los datos de aplicación que pueden ser binarios. Algunos de sus subtipos correspondientes son \textit{json} y \textit{pdf}.
+	\item\textit{font}: significa que el contenido del mensaje es un archivo que define el formato de una fuente. Le pueden suceder subtipos como \textit{woff} y \textit{ttf}.
+\end{itemize}
+
+\subsubsection{Cabeceras MIME}
+Cuando se codifica un correo electrónico siguiendo el estándar MIME, se estructura en diferentes cabeceras cuyo valor asociado nos dará información acerca del mensaje enviado.
+
+\subsection{SMTP}\label{ss:smtp}
+\subsection{POP}\label{ss:pop}
+\subsection{IMAP}\label{ss:imap}
