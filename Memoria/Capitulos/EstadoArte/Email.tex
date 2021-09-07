@@ -40,7 +40,7 @@ Los tipos de contenido englobados dentro del estándar MIME son de gran importan
 
 Hoy en día, ningún programa de correo electrónico o navegador de Internet puede considerarse completo si no acepta MIME en sus distintas funcionalidades (formatos de texto y de archivo).
 
-\subsubsection{Nomenclatura de tipos}
+\subsubsection{Nomenclatura de tipos}\label{sss:mimetipos}
 Como se ha mencionado anteriormente, MIME permite el intercambio de distintos tipos de archivos. Para lograrlo, este estándar utiliza una nomenclatura diferente para denotar a cada tipo. Los nombres utilizados siguen el formato ``tipo/subtipo'', siendo tanto tipo como subtipo cadenas de caracteres. De esta manera, el tipo especificará la categoría general de los datos enviados y el subtipo determinará el tipo específico de la información mandada. Los valores que puede tomar tipo son los siguientes:
 
 \begin{itemize}
@@ -55,8 +55,59 @@ Como se ha mencionado anteriormente, MIME permite el intercambio de distintos ti
 \end{itemize}
 
 \subsubsection{Cabeceras MIME}
-Cuando se codifica un correo electrónico siguiendo el estándar MIME, se estructura en diferentes cabeceras cuyo valor asociado nos dará información acerca del mensaje enviado.
+Cuando se codifica un correo electrónico siguiendo el estándar MIME, se estructura en diferentes cabeceras cuyo valor asociado nos dará información acerca del mensaje enviado. Las cabeceras más importantes son:
+
+\begin{itemize}
+	\item \textit{Content-Type}: el valor asociado a esta cabecera es el tipo y subtipo del mensaje con el mismo formato que se ha explicado anteriormente (véase la sección \ref{sss:mimetipos}). Por ejemplo, si se observe la cabecera y el valor \textit{Content-Type: text/plain}, indicará que el mensaje es un texto plano. El uso del tipo \textit{multipart} hace posible la creación de correos electrónicos con partes y subpartes organizadas en una estructura arbórea, en la cual los nodos hoja pertenecen a cualquier tipo y el resto pueden tratarse de algún subtipo de \textit{multipart} \citep[Sección 7.2]{rfc1341}. Para poder entender mejor cómo se estructuran este tipo de e-mails, en la figura \ref{fig:content-type} se presenta un posible mensaje con una parte de texto plano, otra de texto HTML y una imagen. Para crear este correo electrónico, es necesario contar con un nodo raíz del tipo \textit{multipart/mixed}. Además, como puede observarse en la figura \ref{fig:content-type}, la utilización del tipo \textit{multipart/alternative} permite la coexistencia en un mismo mensaje del cuerpo tanto en formato de texto plano como HTML. Sobra decir que, gracias a este formato de estructura en árbol de la cabecera \textit{Content-Type}, es posible construir muchas otras variedades de mensajes (como adjuntar el mensaje original que ha sido reenviado utilizando \textit{multipart/mixed} con una parte \textit{text/plain} y otra \textit{message/rfc822}).
+	
+	Un detalle importante es el hecho de que si se comparan las figuras \ref{fig:content-type} y \ref{fig:examplemime}, se podrá observar que cada nodo de la estructura arbórea del correo electrónico (mostrada en la figura \ref{fig:content-type}) es presentado en la figura \ref{fig:examplemime} (que es como se reciben los e-mails realmente y como se encuentran almacenados en el corpus) habiendo recorrido el árbol en profundidad en preorden.
+	
+	\begin{figure}[t]
+		\centering%
+		\centerline{\includegraphics[width = 0.9\textwidth]{Imagenes/Bitmap/tree-content-type.png}}%
+		\caption{Estructura arbórea de tipos MIME de un e-mail de ejemplo}%
+		\label{fig:content-type}
+		Imagen extraída de \cite{mitfg}
+	\end{figure}
+
+	\item\textit{Content-Disposition}: esta cabecera indica la forma de presentación de la parte del mensaje a la que pertenece. Puede tener dos posibles valores: \textit{inline} (que se utiliza cuando el contenido debe ser mostrado al mismo tiempo que el cuerpo del mensaje, como por ejemplo cuando se inserta una imagen en el texto y no como archivo adjunto) y \textit{attachment} (este valor determinará que la parte del mensaje requerirá algún tipo de acción por parte del usuario para visualizar el contenido, como por ejemplo en el caso de adjuntar un archivo). Además, esta cabecera dispone de distintos campos que reflejan más información acerca del contenido, como puede ser el nombre del archivo y la fecha de creación o de modificación. A continuación se presenta un ejemplo extraído de \cite{rfc2183} de esta cabecera y los campos que pueden acompañarle:
+	
+	\begin{lstlisting}
+		Content-Disposition: attachment; filename=genome.jpeg;
+		modification-date="Wed, 12 Feb 1997 16:29:51 -0500";
+	\end{lstlisting}
+	
+	También puede observarse esta cabecera en la última parte del mensaje de ejemplo dela figura \ref{fig:examplemime}.
+	
+	\begin{figure}[t]
+		\centering%
+		\centerline{\includegraphics[width = 0.9\textwidth]{Imagenes/Bitmap/exampleMime.png}}%
+		\caption{Mensaje MIME de la figura \ref{fig:content-type}}%
+		\label{fig:examplemime}
+		Imagen extraída de \cite{mitfg}
+	\end{figure}
+	\item\textit{Content-Transfer-Encoding}: cuando se mandan archivos en un correo electrónico, a veces estos se codifican como 8-bit o archivos binarios, codificaciones no soportadas por determinados protocolos. Por este motivo, es necesario poseer un estándar que especifique cómo debe re-codificarse este tipo de información en un formato 7-bit. La cabecera \textit{Content-Transfer-Encoding} \citep[Sección 5]{rfc1341} indica al cliente qué tipo de transformación se ha efectuado para que este sea capaz de recuperar los datos originales. Los posibles valores son \textit{base64} \citep{rfc4648, rfc2045}, \textit{quoted-printable} \citep{rfc1521}, \textit{8bit}, \textit{7bit}, \textit{binary} y \textit{x-token}. Todos ellos hacen referencia a un tipo de codificación que se encuentran fuera del alcance de este trabajo y para las que se recomienda consultar las referencias bibliográficas en caso de querer profundizar en ellas.
+\end{itemize}
 
 \subsection{SMTP}\label{ss:smtp}
+El SMTP (cuyas siglas hacen referencia a \textit{Simple Mail Transfer Protocol}) es un protocolo de red orientado a conexión utilizado para el intercambio de correos electrónicos. Originalmente fue definido por \cite{rfc821} (para especificar cómo llevar a cabo el envío de mensajes) y \cite{rfc822} (que presenta el formato que deben tener los e-mails). Actualmente, se deben consultar los RFC desarrollados por \cite{rfc5321} y \cite{rfc5322} que, respectivamente, sustituyen a los dos originales.
+
+Al ser un protocolo de transferencia de mensajes, posee algunas limitaciones a la hora de recibir e-mails en el servidor de destino. Por ello, esta tarea se delega a otros protocolos como el POP (véase la sección \ref{ss:pop}) e IMAP (véase la sección \ref{ss:imap}), mientras que el SMTP se encarga única y exclusivamente del envío.
+
+Cuando se hace uso del SMTP un correo electrónico es enviado (esta acción de denota con la palabra \textit{push}) de un servidor a otro hasta que alcanza su destino. El mensaje se encamina en función del servidor de correo de destino, en lugar de hacerlo en función de los destinatarios individuales del mensaje especificados durante la conexión del cliente al servidor SMTP. Gracias a que este protocolo dispone de una función para iniciar el procesamiento de la cola de correo, un servidor de correo conectado de forma intermitente puede extraer mensajes de otro servidor remoto cuando sea necesario.
+
 \subsection{POP}\label{ss:pop}
+El POP (cuyas siglas hacen referencia a \textit{Post Office Protocol}) es un protocolo de aplicación en el modelo OSI utilizado para la obtención de e-mails almacenados en un servidor remoto de Internet denominado servidor POP. Originalmente fue definido por \cite{rfc918},que especificó la primera versión de POP, también conocida como POP1. La versión actual de POP, POP3 (en general cuando se habla de POP se refiere a esta versión), fue detallada por \cite{rfc1939}.
+
+El protocolo POP posee numerosos comandos que hacen posible la conexión manual con el servidor POP3. Además, soporta otros como LIST, RETR y DELE, que permiten la gestión de los mensajes del usuario con acciones como mostrarlos, descargarlos o borrarlos, respectivamente.
+
+POP3 fue diseñado para la tarea de recepción de correos electrónicos. Gracias a este protocolo, los usuarios con conexiones a Internet intermitentes o muy lentas pueden descargar sus mensajes mientras se encuentran conectados a la red y consultarlos estando \textit{offline}. La sucesión de operaciones más común se produce cuando un cliente se conecta, descarga todos sus mensajes, los almacena en su dispositivo local como e-mails nuevos, se borran del servidor y, por último, el usuario se desconecta. Sin embargo, algunos clientes de correo incluyen la opción de dejar los mensajes almacenados en el servidor en lugar de borrarlos. Estos utilizan el comando UIDL (\textit{Unique IDentification Listing}) el cual, a diferencia del resto de instrucciones de POP3, no identifica el correo electrónico a través del número ordinal asociado por el servidor, ya que generaría problemas si un cliente tratara de dejar ciertos mensajes en el servidor debido a que este número cambiaría de una conexión a otra. En lugar de ello, asigna a cada mensaje un identificador constituido por una cadena de caracteres única y permanente. De esta manera, se puede determinar fácilmente qué mensajes se quieren almacenar en el servidor a la vez que se descargan.
+
+Al igual que otros protocolos más antiguos, POP3 utiliza un mecanismo de firma sin encriptación. De hecho, la transmisión de contraseñas POP3 en texto plano continúa ocurriendo. Hoy en día, POP3 tiene varios métodos de autenticación que ofrecen un amplio rango de niveles de protección contra accesos ilegales a las bandejas de correo de los usuarios.
+
+La ventaja de POP3 frente a otros protocolos es que entre el cliente y el servidor no es necesario mandar un gran número de comandos para comunicarse. Este protocolo también resulta muy útil cuando no se cuenta con una conexión constante a Internet o a la red que aloja al servidor.
+
 \subsection{IMAP}\label{ss:imap}
+El IMAP (cuyas siglas hacen referencia a \textit{Internet Message Access Protocol}) es un protocolo de aplicación diseñado como alternativa al POP (véase la sección \ref{ss:pop}) en 1986, el cual permite el acceso a los mensajes almacenados en un servidor de Internet. Al igual que con el POP, con el IMAP es posible acceder a la cuenta de correo electrónico desde cualquier dispositivo con conexión a Internet. La versión actual del IMAP (IMAP versión 4 revisión 1 o IMAP4rev1) fue definida por \cite{rfc3501}.
+
+A diferencia del POP, el IMAP abre la puerta a la gestión de la misma bandeja de entrada por parte de múltiples clientes. Esta característica se produce gracias a las principales diferencias entre los dos protocolos: el IMAP no elimina los mensajes del servidor hasta que el cliente lo solicite explícitamente (mientras que el POP los borra por defecto, lo que hace imposible acceder a ellos desde otro dispositivo que no haya descargado previamente los correos electrónicos) y tampoco descarga los e-mails en el dispositivo del usuario, aunque opcionalmente es factible tener una copia local de los mismos. Esta última propiedad del IMAP da lugar a algunas ventajas frente al POP. Una de ellas es la posibilidad e notificar de manera inmediata de la llegada de un nuevo correo electrónico (ya que el IMAP funciona con una conexión cliente-servidor permanente), mientras que el POP verifica si hay nuevos mensajes cada pocos minutos (lo cual provoca un aumento apreciable del tráfico y del tiempo que el usuario tiene que esperar para enviar una solicitud al servidor, ya que es necesario completar primero la descarga de todos los mensajes nuevos). Por otro lado, gracias al IMAP, los usuarios pueden crear carpetas compartidas con otras personas (esta funcionalidad depende del servidor de correo) y los e-mails no ocupan espacio de memoria en el dispositivo local, mientras que el POP los descarga independientemente de si van a ser leídos o no (estrictamente hablando, el IMAP tiene que descargar el mensaje cuando va a ser leído, pero se trata de archivos temporales y solo se extraen las cabeceras de los correos electrónicos a la hora de gestionar la bandeja de entrada). Precisamente, el hecho de evitar la descarga del e-mail, permite al usuario gestoinar carpetas, plantillas y borradores en el servidor además de poder llevar a cabo una búsqueda en la bandeja de entrada mediante palabras clave.
