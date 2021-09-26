@@ -126,39 +126,3 @@ def init_mongodb(url, init = False):
     else:
         col = db.init
     return client, db, col
-
-
-def update_all_documents(url, fieldNames, functions):
-    """
-    Update all the documents of the collection.
-
-    Parameters
-    ----------
-    url : str
-        URL to establish the MongoDB connection.
-    fieldNames : list
-        List of field' names that are going to be updated.
-    functions : list
-        List of functions which change the fields.
-
-    Returns
-    -------
-    None.
-
-    """
-    client, db, col = init_mongodb(url)
-    cursor = col.find({})
-    print('Copying cursor...')
-    collection_data = [{'_id': doc['_id'], 'Body': doc['Body']} for doc in cursor]
-    print('Cursor copied')
-    num_collection = len(collection_data)
-    changed = 0
-
-    for doc in collection_data:
-        if changed % 1500 == 0:
-            print(f'Changed {changed} out of {num_collection}')
-        col.update({"_id": doc['_id']},
-                   {"$set": {fieldName: function(doc) for
-                             fieldName, function in zip(fieldNames, functions)}})
-        changed += 1
-    client.close()

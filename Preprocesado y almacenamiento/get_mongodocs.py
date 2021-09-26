@@ -5,6 +5,7 @@ import re
 
 REPLY_PAT = '-----Original Message-----'
 FORWARD_PAT = '---------------------- Forwarded by'
+APPOINTMENT_PAT = '-----Original Appointment-----'
 TOKEN_SEPARATOR = '¿'
 MAXIMUM_LEN = 1000000
 
@@ -35,7 +36,7 @@ def get_msg_body(msg):
 
 
 def clean_body_message(body):
-    return re.sub(' +', ' ', body.split(REPLY_PAT)[0].split(FORWARD_PAT)[0].replace('\n', ' '))
+    return re.sub(' +', ' ', body.split(REPLY_PAT)[0].split(FORWARD_PAT)[0].split(APPOINTMENT_PAT)[0].replace('\n', ' '))
 
 
 def create_msg_from_string(string):

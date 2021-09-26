@@ -22,6 +22,6 @@ def printProgressBar (iteration, total, deleted_it, prefix = '', suffix = '', de
     if iteration == total:
         print()
 
-def myprint(text):
-    with open('output.log', 'a') as f:
+def myprint(text, file_name = 'output.log'):
+    with open(file_name, 'a') as f:
         f.write(text + '\n')
