@@ -97,7 +97,7 @@ Durante el proceso de almacenamiento, también se ha llevado a cabo un primer fi
 \subsection{Análisis exploratorio de los datos}\label{ss:eda}
 Tras llevar a cabo las tareas de preparación, limpieza de los datos, procesamiento y almacenamiento, con un filtrado a priori, se pueden observar las distribuciones numéricas del corpus desarrollando un análisis exploratorio de los datos. Este estudio preliminar ofrecerá una descripción acerca de los correos electrónicos y sus Information Items.
 
-El primer, y probablemente más sencillo, parámetro que puede analizarse es el número de palabras de cada correo. Para observar cómo se distribuye esta variable en el conjunto de datos, se han calculado las frecuencias requeridas para generar la figura \ref{fig:distpal}. En ella puede deducirse que, a pesar de poseer correos electrónicos con una gigantesca cantidad de palabras, la mayoría de mensajes muestran un número más considerable para tratarse de e-mails.
+El primer, y probablemente más sencillo, parámetro que puede analizarse es el número de palabras de cada correo. Para observar cómo se distribuye esta variable en el conjunto de datos, se han calculado las frecuencias requeridas para generar la figura \ref{fig:distpal}. En ella puede deducirse que, a pesar de poseer correos electrónicos con una gigantesca cantidad de palabras, la mayoría de mensajes muestran un número más razonable para tratarse de e-mails.
 
 \begin{figure}[h]
 	\centering%
@@ -105,3 +105,14 @@ El primer, y probablemente más sencillo, parámetro que puede analizarse es el 
 	\caption{Distribución del número de palabras en los mensajes}%
 	\label{fig:distpal}
 \end{figure}
+
+Resulta evidente que la representada en la figura \ref{fig:distpal}, se trata de una distribución con muchos \textit{outliers} por la derecha. En lo que se refiere al apuntamiento, claramente se observa un intervalo relativamente pequeño en el que se concentran una gran cantidad de correos electrónicos. Sin embargo, de dicha gráfica resulta complicado extraer más conclusiones de las mencionadas, por la falta de detalle en la parte más apuntada de la distribución. Por esta razón, se ha delimitado el eje de abscisas y, de esta forma, se puede estudiar en mejores condiciones cómo se distribuye la variable del número de palabras a lo largo del conjunto de datos. El resultado de tomar un intervalo de los primeros valores del eje x (el número de palabras) es la figura \ref{fig:distminpal}.
+
+\begin{figure}[h]
+	\centering%
+	\centerline{\includegraphics[width = 1.3\textwidth]{Imagenes/Bitmap/dist-mini-palabras.png}}%
+	\caption{Distribución del número de palabras en los mensajes delimitando los ejes}%
+	\label{fig:distminpal}
+\end{figure}
+
+Observando la figura \ref{fig:distminpal}, sí se pueden extraer conclusiones más fundamentadas y con mayor exactitud. Lo más relevante, probablemente sea el hecho de que una amplia cantidad de mensajes del corpus (seguramente un número mayoritario de e-mails) posean menos de doscientas palabras. Esta observación concuerda más con la naturaleza intrínseca del correo electrónico: suelen estar constituidos por un número reducido de oraciones simples y cortas. Resultaría razonable reducir la muestra del corpus en función del número de palabras vista la distribución presentada, pero la decisión del número límite para diferenciar entre los escogidos y los que no resultaría una elección un tanto arbitraria y precipitada si no analizáramos otros parámetros que se ven más adelante. Así que lo más prudente, antes de reducir drásticamente el conjunto de datos en base a un primer vistazo de una variable, es estudiar otras características del corpus.
