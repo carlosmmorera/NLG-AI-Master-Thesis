@@ -723,8 +723,74 @@
 % Paquete para poder poner celdas de colores en una tabla
 %
 %\usepackage{colortbl}
-%\usepackage{color}
+\usepackage{color}
 
+
+% Redefino los colores con los que lstlisting muestra código python
+%http://latexcolor.com/
+\definecolor{deepblue}{rgb}{0.01,0.28,1}
+\definecolor{deepred}{rgb}{1,0.1,0.26}
+\definecolor{deepgreen}{rgb}{0,0.6,0}
+\definecolor{mybronze}{rgb}{0.8,0.5,0.2}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+
+%https://en.wikibooks.org/wiki/LaTeX/Source_Code_Listings
+% Python style for highlighting
+\newcommand\pythonstylenum{\lstset{
+		language=Python,
+		basicstyle=\small,
+		commentstyle=\color{deepgreen},
+		otherkeywords={self},             % Add keywords here
+		keywordstyle=\bfseries\color{deepblue},
+		emph={__init__, None, open, integer, string, unsigned, long, bytes},          % Custom highlighting
+		emphstyle=\color{deepred},    % Custom highlighting style
+		numberstyle=\color{mygray},
+		stringstyle=\color{mymauve},
+		showstringspaces=false,            %
+		tabsize=3,
+		numbers=left,
+		stepnumber=5,
+		firstnumber=1,
+		numberfirstline=true
+}}
+
+\newcommand\pythonstyle{\lstset{
+		language=Python,
+		basicstyle=\small,
+		commentstyle=\color{deepgreen},
+		otherkeywords={self},             % Add keywords here
+		keywordstyle=\bfseries\color{deepblue},
+		emph={__init__, None, open, integer, string, unsigned, long, bytes},          % Custom highlighting
+		emphstyle=\color{deepred},    % Custom highlighting style
+		numberstyle=\color{mygray},
+		stringstyle=\color{mymauve},
+		showstringspaces=false,            %
+		tabsize=3
+}}
+
+% Python environment
+\lstnewenvironment{python}[1][]
+{
+	\pythonstyle
+	\lstset{#1}
+}
+{}
+
+\lstnewenvironment{pythonnum}[1][]
+{
+	\pythonstylenum
+	\lstset{#1}
+}
+{}
+
+% Python for external files
+\newcommand\pythonexternal[2][]{{
+		\pythonstyle
+		\lstinputlisting[#1]{#2}}}
+
+% Python for inline
+\newcommand\pythoninline[1]{{\pythonstyle\lstinline!#1!}}
 
 % Paquete  que permite  cambiar  el formato  en  el que  se ponen  los
 % títulos   de   capítulos,  secciones,   etc.    También  define   el
