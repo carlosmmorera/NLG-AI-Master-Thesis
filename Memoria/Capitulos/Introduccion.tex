@@ -1,59 +1,16 @@
 \chapter{Introducción}
 \label{cap:introduccion}
 
-\chapterquote{Frase célebre dicha por alguien inteligente}{Autor}
+\chapterquote{¿Alguna vez has retirado un humano por error?}{Rachael - Blade Runner (1982)}
 
 
-El estudiante elaborará una memoria descriptiva del trabajo realizado, con una \textbf{extensión mínima recomendada de 50 páginas} incluyendo al menos una introducción, objetivos y plan de trabajo, resultados con una discusión crítica y razonada de los mismos, conclusiones y bibliografía empleada en la elaboración de la memoria.
+En este capítulo se presenta la motivación que incentiva el desarrollo de este trabajo (véase la sección \ref{motivacion}) y los objetivos que se pretenden alcanzar (apartado \ref{obj})
 
-La memoria se puede redactar en castellano o en inglés, pero en el primer caso la introducción y las conclusiones de la memoria tienen que traducirse también al inglés y aparecerán como capítulos \textbf{al final de la memoria}. En ambos casos, el título de la memoria aparecerá en castellano y en inglés.
-
-Además del cuerpo principal describiendo el trabajo realizado, la memoria contendrá los siguientes elementos, que no computarán para el cálculo de la extensión mínima del trabajo:
-
-\begin{itemize}
-\item un resumen en inglés de media página, incluyendo el título en inglés,
-\item ese mismo resumen en castellano, incluyendo el título en castellano,
-\item una lista de no más de 10 palabras clave en inglés,
-\item esa misma lista en castellano,
-\item un índice de contenidos, y
-\item una bibliografía.
-\end{itemize}
-
-La portada de la memoria deberá contener la siguiente información:
-
-\begin{itemize}
-\item "Máster en NOMBRE DEL MÁSTER, Facultad de Informática, Universidad Complutense de Madrid"
-\item Título
-\item Autor
-\item Director(es)
-\item Colaborador externo de dirección, si lo hay
-\item Curso académico
-\item Solo en la versión final: convocatoria y calificación obtenida
-\end{itemize}
-
-Para facilitar la escritura de la memoria siguiendo esta estructura, el estudiante podrá usar las plantillas en LaTeX o Word preparadas al efecto y publicadas en la página web del máster correspondiente.
-
-Todo el material no original, ya sea texto o figuras, deberá ser convenientemente citado y referenciado. En el caso de material complementario se deben respetar las licencias y copyrights asociados al software y hardware que se emplee. En caso contrario no se autorizará la defensa, sin menoscabo de otras acciones que correspondan.
-
-
-\section{Motivación}
+\section{Motivación}\label{motivacion}
 El reciente desarrollo y el consecuente auge que los \textit{smartphones} han llevado a cabo en las últimas décadas, ha traído consigo innumerables cambios de paradigma, tanto en el término de lo tecnológico como en el ámbito social. Precisamente, el fácil y cada vez más sencillo acceso que supuso la aparición de los smartphones conectados a una red 3G a principios de los 2000, permitió acercar a un público emergente y cada vez mayor, herramientas, hoy en día consideradas esenciales, como las videoconferencias o la mensajería instantánea. Fue precisamente este sistema de mensajería ``pionero'' el que terminó evolucionando y desembocando en el desarrollo de distintas aplicaciones que han ayudado a la popularización de la comunicación en tiempo real, llegando a enviar hasta cien mil millones mensajes de manera diaria en 2020. Aunque esta serie de aplicaciones cuentan con la principal característica de ser más cercanas, informales e inmediatas –de modo que la necesidad de inmediatez y la urgencia de los emisores queda satisfecha prácticamente al segundo–, esto no les ha sido suficiente para relevar totalmente de sus tareas a sistemas de mensajería más ``veteranos'' como el correo electrónico, que requieren de un mayor tiempo de dedicación para su correcta utilización, dada la mayor complejidad, riqueza y elaboración del lenguaje que en ellos conviene presentar, debido a su carácter y ``personalidad'' más formal. Si bien es cierto que, aunque hoy en día, general y habitualmente el correo electrónico se destine a ámbitos más formales o institucionales, como exordio de una comunicación que probablemente evolucione hacia otro tipo de plataformas o, más informalmente, para el envío de archivos, este continúa siendo un medio de comunicación de uso habitual; en el caso de algunas personas, este uso se extiende incluso al ámbito diario, pero con la clara y evidente desventaja de que requiere una mayor atención por parte del usuario.
 
 Resulta evidente que existe una clara brecha entre aplicaciones de mensajería instantánea y correo electrónico y que esta, debe ser solventada para facilitar la experiencia y el uso del correo a sus usuarios; por ello, se propone IRIS. El sistema IRIS (\textit{Intelligent Response Instantly Sent}) se postula como un asistente virtual cuyo objetivo es mejorar la experiencia de usuario en la utilización del correo electrónico, abordando la problemática de la dedicación requerida que este exige; en consecuencia, el \textit{modus operandi} de IRIS es sencillo. Al utilizar IRIS, el usuario postula la idea que quiere transmitir y el tema en torno al que debe girar el cuerpo del mensaje y esto es recibida por el asistente, que mediante técnicas de generación de lenguaje natural, tratará de expresar dicha idea en un formato de texto de manera extensa, para posteriormente enviar el correo electrónico a su destinatario.
 
 
-\section{Objetivos}
-Descripción de los objetivos del trabajo.
-
-
-\section{Plan de trabajo}
-Aquí se describe el plan de trabajo a seguir para la consecución de los objetivos descritos en el apartado anterior.
-
-
-
-\section{Explicaciones adicionales sobre el uso de esta plantilla}
-Si quieres cambiar el \textbf{estilo del título} de los capítulos, edita \verb|TeXiS\TeXiS_pream.tex| y comenta la línea \verb|\usepackage[Lenny]{fncychap}| para dejar el estilo básico de \LaTeX.
-
-Si no te gusta que no haya \textbf{espacios entre párrafos} y quieres dejar un pequeño espacio en blanco, no metas saltos de línea (\verb|\\|) al final de los párrafos. En su lugar, busca el comando  \verb|\setlength{\parskip}{0.2ex}| en \verb|TeXiS\TeXiS_pream.tex| y aumenta el valor de $0.2ex$ a, por ejemplo, $1ex$.
-
-TFMTeXiS se ha elaborado a partir de la plantilla de TeXiS\footnote{\url{http://gaia.fdi.ucm.es/research/texis/}}, creada por Marco Antonio y Pedro Pablo Gómez Martín para escribir su tesis doctoral. Para explicaciones más extensas y detalladas sobre cómo usar esta plantilla, recomendamos la lectura del documento \texttt{TeXiS-Manual-1.0.pdf} que acompaña a esta plantilla.
+\section{Objetivos}\label{obj}
+Los principales objetivos de este trabajo son el estudio, la implementación y la evaluación de las distintas ténicas de generación de lenguaje natural (NLG) que permiten redactar correos electrónicos de manera automática a partir de pequeñas representaciones semánticas. Para lograrlo, se entrará en detalle tanto de las distintas arquitecturas del campo de la NLG y se profundizará en las alternativas para producir estas representaciones semánticas que luego puedan dar lugar a mensajes completos. En concreto, se estudiarán los llamados Information Items, utilizados en el campo del resumen automático de textos, para implementar estas representaciones semánticas y evaluarlas con las dos arquitecturas principales hoy en día en el campo de la NLG: los modelos transformers y realizers.

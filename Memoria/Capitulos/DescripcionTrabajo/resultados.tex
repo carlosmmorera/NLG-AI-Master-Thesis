@@ -1,0 +1,9 @@
+\section{Evaluación de los resultados}\label{s:resultados}
+
+Para este modelo se ha utilizado el 80\% de los datos para el entrenamiento y el 20\% restante para el testeo, es decir, 185030 correos electrónicos con sus respectivos Information Items han entrenado el modelo y 46258 se han empleado para determinar la precisión del mismo.
+
+A pesar de contar con un número tan elevado de correos electrónicos, en el entrenamiento se consiguió una precisión máxima de 0.4183 y en el conjunto de testeo de 0.2148. Hay que tener en cuenta que estos resultados se calculan como la probabilidad de predecir correctamente la próxima palabra dada una entrada y el texto generado en las iteraciones anteriores.
+
+Una posible explicación que se le puede dar a estos resultados tan bajos es que, la entrada de los InIts no brinda suficiente contenido semántico como para generar todo el cuerpo del correo electrónico, es decir, el modelo transformer también se ve afectado por la dificultad que se encontraba en la arquitectura realizer de añadir información extra no incluida en los Information Items. A diferencia de otros casos de uso, como la traducción automática, en los que el modelo de atención sí puede hacer una correspondencia casi directa entre la entrada y la salida, esto no ocurre facilitándole como entrada estas tuplas sujeto-verbo-objeto, ya que la correspondencia de atención apenas se encuentra adecuadamente correspondida por contener la salida información semántica extra que resulta difícil generar sin dicho conocimiento.
+
+Por lo tanto, aunque no debe descartarse la arquitectura transformer para este caso de uso, sí que conviene replantearse la definición de estas representaciones semánticas de entrada que quizás requieran ser más complejas para lograr unos resultados más satisfactorios.
